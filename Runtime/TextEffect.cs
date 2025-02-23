@@ -43,9 +43,10 @@ namespace EasyTextEffects
             TMP_TextInfo textInfo = text.textInfo;
 
             var styles = textInfo.linkInfo;
+            var linkCount = textInfo.linkCount;
 
             CopyGlobalEffects(textInfo);
-            AddTagEffects(styles);
+            AddTagEffects(styles, linkCount);
 
             StartOnStartEffects();
         }
@@ -77,7 +78,7 @@ namespace EasyTextEffects
             });
         }
 
-        private void AddTagEffects(TMP_LinkInfo[] styles)
+        private void AddTagEffects(TMP_LinkInfo[] styles, int linkCount)
         {
             onStartTagEffects_ = new List<TextEffectEntry>();
             manualTagEffects_ = new List<TextEffectEntry>();
@@ -92,7 +93,7 @@ namespace EasyTextEffects
                 allTagEffects_.AddRange(preset.tagEffects);
 
 
-            for (var i = 0; i < styles.Length; i++)
+            for (var i = 0; i < linkCount; i++)
             {
                 TMP_LinkInfo style = styles[i];
                 if (style.GetLinkID() == string.Empty)
