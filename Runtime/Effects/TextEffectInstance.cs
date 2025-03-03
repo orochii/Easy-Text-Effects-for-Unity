@@ -76,6 +76,7 @@ namespace EasyTextEffects.Effects
 
         protected bool CheckCanApplyEffect(int _charIndex)
         {
+            if (isComplete) return false;
             return started && _charIndex >= startCharIndex && _charIndex < startCharIndex + charLength;
         }
 
