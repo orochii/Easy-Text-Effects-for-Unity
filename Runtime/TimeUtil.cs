@@ -11,11 +11,11 @@ namespace EasyTextEffects
         private static float _editorStartTime = -1;
 #endif
 
-        public static float GetTime()
+        public static float GetTime(bool unscaled)
         {
             if (Application.isPlaying)
             {
-                return Time.time;
+                return unscaled ? Time.unscaledTime : Time.time;
             }
             else
             {

@@ -34,6 +34,7 @@ namespace EasyTextEffects.Effects
         [ConditionalField(nameof(animationType), false, AnimationType.LoopFixedDuration)]
         public float fixedDuration;
 
+        public bool UnscaledTime;
 
         [Space(10)]
         [FormerlySerializedAs("duration")]
@@ -76,7 +77,6 @@ namespace EasyTextEffects.Effects
 
         protected bool CheckCanApplyEffect(int _charIndex)
         {
-            if (isComplete) return false;
             return started && _charIndex >= startCharIndex && _charIndex < startCharIndex + charLength;
         }
 
@@ -85,7 +85,7 @@ namespace EasyTextEffects.Effects
             currentEntry = entry;
 
             started = true;
-            startTime = TimeUtil.GetTime();
+            startTime = TimeUtil.GetTime(UnscaledTime);
             isComplete = false;
 
             if (animationType == AnimationType.OneTime || animationType == AnimationType.LoopFixedDuration)
@@ -143,7 +143,7 @@ namespace EasyTextEffects.Effects
 
         private float GetTimeForChar(int _charIndex)
         {
-            var time = TimeUtil.GetTime();
+            var time = TimeUtil.GetTime(UnscaledTime);
 
             // Check completion for LoopFixedDuration
             if (animationType == AnimationType.LoopFixedDuration && time - startTime > fixedDuration)
